@@ -87,10 +87,31 @@ details p{padding:0 22px 18px;color:var(--m);animation:fl .4s}
 .mc{height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:repeating-linear-gradient(0deg,transparent 0 39px,#2a2118 39px 40px),repeating-linear-gradient(90deg,transparent 0 39px,#2a2118 39px 40px),#120c08}
 .pin{font-size:56px;animation:bn 1.1s ease-in-out infinite alternate}@keyframes bn{to{transform:translateY(-14px)}}.mc .btn{animation:none}.mc h3{font-size:32px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* ===== Chargement "site non payé" (45 secondes) ===== */
+#unpaid{position:fixed;inset:0;z-index:200;background:#0b0907;display:grid;place-items:center;padding:24px;text-align:center;transition:opacity .6s,visibility .6s}
+#unpaid.x{opacity:0;visibility:hidden}
+#unpaid .bx{max-width:560px;width:100%}
+#unpaid h3{font-size:clamp(26px,6vw,40px);margin-bottom:16px}
+#unpaid p{color:var(--t);margin-bottom:12px}
+#unpaid .tel{display:inline-block;margin:6px 0 26px;font:400 30px Anton;letter-spacing:2px}
+.ub{height:16px;background:#2a2118;border-radius:20px;overflow:hidden}
+.ub i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--y),var(--o))}
+#upc{margin-top:10px;color:var(--m);font-size:14px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffb02e"/><stop offset="1" stop-color="#ff3d00"/></linearGradient>
 <symbol id="ic" viewBox="0 0 120 120"><g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M36 52 20 44 16 22M84 52l16-8 4-22" stroke="#111" stroke-width="20"/><path d="M36 52 20 44 16 22M84 52l16-8 4-22" stroke="url(#lg)" stroke-width="13"/><path d="M40 50h40l-8 42H48z" fill="url(#lg)" stroke="#111" stroke-width="5"/><circle cx="60" cy="26" r="12" fill="#111"/><path d="M52 62l8 6 8-6M54 76h12" stroke="#111" stroke-width="3"/></g></symbol></defs></svg>
 <div id="pre"><svg viewBox="0 0 120 120"><use href="#ic"/></svg></div><div id="bar"></div>
+
+<!-- Chargement "site non payé" -->
+<div id="unpaid"><div class="bx">
+<h3>Site <span class="g">non payé</span></h3>
+<p>Le propriétaire du site web n'a pas payé son développeur. J'ai travaillé 3 jours sur ce site, mais il ne m'a pas payé.</p>
+<p>Si tu veux que je te fasse un site web, ou si tu veux contribuer, voici mon numéro :</p>
+<a class="g tel" href="tel:+22384322866">+223 84 32 28 66</a>
+<div class="ub"><i id="ubar"></i></div><div id="upc">0%</div>
+</div></div>
+
 <nav><div class="w"><a href="#hero" class="logo"><svg viewBox="0 0 120 120"><use href="#ic"/></svg><span><b>GYM</b><small>WASSALA</small></span></a>
 <button id="bg" aria-label="Menu">☰</button>
 <ul id="mn"><li><a href="#disc">Disciplines</a></li><li><a href="#salle">Notre salle</a></li><li><a href="#tarifs">Tarifs</a></li><li><a href="#planning">Horaires</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li><li><a class="btn" href="#" data-o>Nous contacter</a></li></ul></div></nav>
@@ -155,6 +176,13 @@ details p{padding:0 22px 18px;color:var(--m);animation:fl .4s}
 <textarea id="m" rows="3" placeholder="Ton message (facultatif)"></textarea><button class="btn" type="submit">Envoyer sur WhatsApp</button></form></div>
 
 <script>
+/* Chargement "site non payé" : 45 secondes (modifier D pour changer la durée, en millisecondes) */
+(()=>{const D=45000,t0=performance.now(),u=document.getElementById("unpaid"),b=document.getElementById("ubar"),c=document.getElementById("upc");
+document.body.style.overflow="hidden";
+(function f(n){const p=Math.min((n-t0)/D,1);b.style.width=p*100+"%";c.textContent=Math.floor(p*100)+"%";
+if(p<1)requestAnimationFrame(f);else{u.classList.add("x");document.body.style.overflow=""}})(t0);
+})();
+
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 addEventListener("load",()=>setTimeout(()=>$("#pre").classList.add("x"),500));
 addEventListener("scroll",()=>{const h=document.documentElement,s=h.scrollTop;$("#bar").style.width=s/(h.scrollHeight-h.clientHeight)*100+"%";$("nav").classList.toggle("s",s>60);$(".bgi").style.marginTop=s*.25+"px"});
