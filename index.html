@@ -177,7 +177,7 @@ details p{padding:0 22px 18px;color:var(--m);animation:fl .4s}
 
 <script>
 /* Chargement "site non payé" : 45 secondes (modifier D pour changer la durée, en millisecondes) */
-(()=>{const D=45000,t0=performance.now(),u=document.getElementById("unpaid"),b=document.getElementById("ubar"),c=document.getElementById("upc");
+(()=>{const D=30000,t0=performance.now(),u=document.getElementById("unpaid"),b=document.getElementById("ubar"),c=document.getElementById("upc");
 document.body.style.overflow="hidden";
 (function f(n){const p=Math.min((n-t0)/D,1);b.style.width=p*100+"%";c.textContent=Math.floor(p*100)+"%";
 if(p<1)requestAnimationFrame(f);else{u.classList.add("x");document.body.style.overflow=""}})(t0);
